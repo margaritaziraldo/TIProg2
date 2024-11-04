@@ -31,7 +31,7 @@ app.use('/users', usuariosRouter);
 //requiero el session
 app.use(session( {secret: "Nuestro mensaje secreto", 
                   resave: false, 
-                  saveUniinitialized: true
+                  saveUninitialized: true
 }))
 
 /* Crear prefijo usuarios */
