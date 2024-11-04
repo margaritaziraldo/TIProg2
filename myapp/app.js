@@ -21,9 +21,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const session = require('express-session');
+
 app.use('/', indexRouter);
 app.use('/movies', moviesRouter);
 app.use('/users', usuariosRouter);
+
+//requiero el session
+app.use(session( {secret: "Nuestro mensaje secreto", 
+                  resave: false, 
+                  saveUnitialized: true}));
 
 /* Crear prefijo usuarios */
 
