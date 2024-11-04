@@ -21,7 +21,7 @@
           <li class="li">
             <a href="/movies/id/<%= listaPeliculas[i].id %>"> <%= listaPeliculas[i].title %></a> 
             <div class="btns-movies">
-                <a href="/1000" class="btn-special btn-blue">Modificar</a>
+                <a href="/movies/update/<%= listaPeliculas[i].id  %>" class="btn-special btn-blue">Modificar</a>
                 <form action="" method="post">
                   <input type="hidden" name="id" value="1000">
                   <button class="btn-special btn-red" type="submit">Eliminar</button>
