@@ -27,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/movies', moviesRouter);
 app.use('/users', usuariosRouter);
 
+// hola soy piki 
 //requiero el session
 app.use(session( {secret: "Nuestro mensaje secreto", 
                   resave: false, 
