@@ -14,10 +14,18 @@
 			<div class="col-12">
 				<h2 class="products-title">Agregar productos</h2>
 			</div>
-			<!-- Show the "ultimos" products -->
-			<h2 class="col-12"> //////////////////////////////// <br>
-				Eliminá está etiqueta h2 y creá en su lugar el formulario para agregar productos al catálogo <br>
-				////////////////</h2>
+			<form action="/products/add" method="post">
+				<label for="titulo">Título</label>
+				<input type="text" name="titulo" placeholder="Ingrese el título del producto" required>
+				<label for="descripcion">Descripción</label>
+				<input type="text" name="descripcion" placeholder="Ingrese la descripción del producto" required>
+				<button type="submit">Cargar producto</button>
+			</form>
+			<% if (error) { %>
+				<p><%= error %></p>
+			<% } %>
+		</div>
+	</div>
 
 
 	<!-- footer -->
