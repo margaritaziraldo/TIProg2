@@ -1,39 +1,48 @@
- module.exports = function(sequelize, datatypes) {
+module.exports = function (sequelize, datatypes) {
 
-     let alias = "User";
-   
-     let cols = {
-         id: {
-             autoIncrement: true,
-             primaryKey: true,
-             type: datatypes.INTEGER
-         },
-         name: {
-             type: datatypes.STRING(255)
-         },
-         email: {
-             type: datatypes.STRING(255)
-         },
-         password: {
-             type: datatypes.STRING(255)
-         },
-         remember_token: {
-             type: datatypes.STRING(100)
-         },
-         createdAt: {
-             type: datatypes.DATE
-         },
-         updatedAt: {
-             type: datatypes.DATE
-         }
-     };
+    let alias = "User";
 
-     let config = {
-         tableName: "users",
-         timestamps: true,
-         underscored: true
-     };
+    let cols = {
+        id: {
+            autoIncrement: true,
+            primaryKey: true,
+            type: datatypes.INTEGER
+        },
+        username: {
+            type: datatypes.STRING
+        },
+        email: {
+            type: datatypes.STRING
+        },
+        contrasenia: {
+            type: datatypes.STRING
+        },
+        profilepic: {
+            type: datatypes.STRING
+        },
+        createdAt: {
+            type: datatypes.DATE
+        },
+        updatedAt: {
+            type: datatypes.DATE
+        }
+    };
 
-     const Users = sequelize.define(alias, cols, config);
-     return Users;
- }
+    let config = {
+        tableName: "usuarios",
+        timestamps: true,
+        underscored: false
+    };
+
+    const Users = sequelize.define(alias, cols, config);
+
+    Users.associate = function(models) {
+        Users.hasMany(models.Product, {
+            as: "productos_usuario",
+            foreignKey: "idUsuario"
+        });
+    };
+
+
+    return Users;
+}
