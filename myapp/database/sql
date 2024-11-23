@@ -1,0 +1,39 @@
+-- Base de datos
+-- Estructura de tabla para la tabla `productos
+CREATE TABLE productos (
+-- nombre			tipo de dato 			constraints
+  id				int(10) 				UNSIGNED auto_increment NOT NULL,
+  nombre			varchar(100) 			NOT NULL,
+  -- imagen			?? 						NOT NULL,
+  descripcion 		varchar(300) 			DEFAULT NULL,
+  created_at 		timestamp 				NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  updated_at 		timestamp 				NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  deleted_at 		timestamp 				NULL DEFAULT NULL,
+  idUsuario 		int(10) 				UNSIGNED DEFAULT NULL
+  );
+  
+  -- Datos para la tabla `productos`
+INSERT INTO productos VALUES (DEFAULT, "Pava Jarra Electrica", IMAGEN, "Pava eléctrica de acero inoxidable con base removible. Interruptor automático de seguridad, Apagado automatico cuando hierve el agua, Tapa con bloqueo de cierre", DEFAULT, DEFAULT, DEFAULT, ??);
+INSERT INTO productos VALUES (DEFAULT, "Ventilador De Techo 4 Aspas", IMAGEN, "3 tonos de luz progresiva: cálida, neutra y fría. Se puede usar la luz y el ventilador por separado, no es necesario que se prendan los dos al mismo tiempo. Funcionamiento en ambos sentidos: Para verano: contrario a las agujas del reloj (sube el aire caliente y baja el aire frío). Para invierno: sentido a las agujas del reloj (sube el aire frío y baja el aire caliente).", DEFAULT, DEFAULT, DEFAULT, ??);
+INSERT INTO productos VALUES (DEFAULT, "Cup Cake Maker Antiadherente", IMAGEN, "Con capacidad para hacer 6 unidades, permitirá disfrutar de tus postres favoritos en la comodidad de tu hogar. Con una potencia de 650 W, este Cup Cake Maker garantiza un calentamiento rápido y uniforme, asegurando que tus cupcakes queden perfectamente cocidos en cada uso.", DEFAULT, DEFAULT, DEFAULT, ??);
+INSERT INTO productos VALUES (DEFAULT, "Exprimidor de Jugo Eléctrico Acero Inoxidable", IMAGEN, "Con el Exprimidor de Jugo Eléctrico Acero inoxidable ATMA, podes disfrutar de jugos frescos y deliciosos en cuestión de segundos. Gracias a su potente motor obtendrás el máximo rendimiento de tus frutas favoritas y te permitira disfrutar de jugos frescos todos los días.", DEFAULT, DEFAULT, DEFAULT, ??);
+INSERT INTO productos VALUES (DEFAULT, "Rallador eléctrico", IMAGEN, "Multirallador de 4 cuchillas para diferentes cortes de rallado: Cuchilla rebanadora, cuchilla para corte Juliana, cuchilla para rallado fino, cuchilla para rallado en hebras. 200 watts de potencia", DEFAULT, DEFAULT, DEFAULT, ??);
+
+-- Estructura de tabla para la tabla `usuarios`
+CREATE TABLE usuarios (
+-- nombre			tipo de dato 			constraints
+  id				int(10) 				UNSIGNED auto_increment NOT NULL,
+  email				varchar(60) 			NOT NULL,
+  username 			varchar(25) 			NOT NULL,
+  contrasenia 		varchar(100) 			DEFAULT NULL,
+  -- profilepic 		??						??
+  created_at 		timestamp 				NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  updated_at 		timestamp 				NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  deleted_at 		timestamp 				NULL DEFAULT NULL
+
+-- Datos para la tabla `usuarios`
+INSERT INTO usuarios VALUES (DEFAULT, "mziraldo@udesa.edu.ar", "margaritaziraldo", "margarita123", IMAGEN, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO usuarios VALUES (DEFAULT, "lcaronni@udesa.edu.ar", "lucascaronni", "lucas123", IMAGEN, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO usuarios VALUES (DEFAULT, "mpoggio@udesa.edu.ar", "mateopoggio", "mateo123", IMAGEN, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO usuarios VALUES (DEFAULT, "castrot@udesa.edu.ar", "tomascastro", "tomas123", IMAGEN, DEFAULT, DEFAULT, DEFAULT);
+INSERT INTO usuarios VALUES (DEFAULT, "areggiardo@udesa.edu.ar", "abrilreggiardo", "abril123", IMAGEN, DEFAULT, DEFAULT, DEFAULT);
