@@ -21,6 +21,7 @@ const userControllers = {
     login: (req, res) => {
         res.render('login');
     },
+    
     // formLogin: function(req, res) {
     //     // Esta ruta no renderiza, redirecciona al usuario a home
     //     return
@@ -32,6 +33,29 @@ const userControllers = {
 
 
     //aca adentro tenemos que poner toda la logica de el modelo de users
+
+    loginUser: (req, res)=>{
+        let form = req.body;
+
+        let filtro = {
+            where:{
+                email: form.email
+            }
+        }
+        db.User.findOne(filtro)
+        .then((result)=>{
+            if (result != undefined) {
+                return res.send(result)
+            } else {
+                return res.send("No se encontro un usuarios")
+            }
+
+        }).catch((err)=>{
+            return console.log(err)
+        });
+
+        return res.send(form)
+    },
 
     results: (req, res)=>{
         // let qs = req.query;
@@ -47,32 +71,9 @@ const userControllers = {
 
 
            });
-        
-        
-        
-        
-        
-        //esto en el caso de usar el metodo get
-        // let form = req.body;
-        
-        // let pass = bcrypt.hashSync(form.password, 10)
-        // form.password = pass;
-        
-        // db.User.create(form)
-        // .then(function(results) {
-        //     return res.redirect('/users/login')
-        // })
-        // .catch(function(error) {
-        //     console.log(error);
-        // })
-
-
-    },
-    // loginUser: (req, res)=>{
-
-    //     //llenar con la logica
 
     }
+}
     
     //conectar todo con las vistas tambien, 
 
