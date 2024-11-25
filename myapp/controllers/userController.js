@@ -1,5 +1,5 @@
 const db = require('../database/models');
-const bcrypt = require("bcryptjs")
+const bcryptjs = require("bcryptjs");
 const User = db.User;
 
 
@@ -17,7 +17,7 @@ const userControllers = {
     register: (req, res) => {
         res.render('register');
     },
-    //loginUser
+    
     login: (req, res) => {
         res.render('login');
     },
@@ -30,9 +30,6 @@ const userControllers = {
     //     // Esto no renderiza, que redirecciona al usuario a login
     //     return
     // },
-
-
-    //aca adentro tenemos que poner toda la logica de el modelo de users
 
     loginUser: (req, res)=>{
         let form = req.body;
@@ -61,6 +58,9 @@ const userControllers = {
         // let qs = req.query;
 
         let form = req.body;
+        let pass = bcryptjs.hashSync(form.contrasenia, 10);
+        
+        form.contrasenia = pass;
 
            db.User.create(form)
            .then((result)=>{
