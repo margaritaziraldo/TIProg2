@@ -5,6 +5,7 @@ var router = express.Router();
 // creamos "productController o usamos indexController" ??
 // Get
 router.get('/add', indexController.add);
+router.get('/search-results/', indexController.buscar);
 
 
 // Post
