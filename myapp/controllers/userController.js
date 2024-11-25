@@ -84,6 +84,11 @@ const userControllers = {
 
             });
 
+    },
+
+    logout: (req, res)=>{
+        req.session.destroy()
+        return res.redirect("/")
     }
 }
 
