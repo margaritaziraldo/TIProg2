@@ -8,6 +8,7 @@ const indexController = {
             include: [{association: "usuario_producto"}]
           })
             .then(prod => {
+                // return res.send(prod)
               res.render('index', {productos: prod});
             })
             .catch(error => {
