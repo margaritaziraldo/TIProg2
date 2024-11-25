@@ -6,13 +6,11 @@ var router = express.Router();
 // Get
 router.get('/add', indexController.add);
 
+
 // Post
 router.post('/add', indexController.formAdd);
 
 // Params
-
-
-// escribir las rutas de products
 router.get('/id/:id',indexController.detalle)
 
 
