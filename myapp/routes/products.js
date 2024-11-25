@@ -13,7 +13,7 @@ router.post('/add', indexController.formAdd);
 
 
 // escribir las rutas de products
-
+router.get('/id/:id',indexController.detalle)
 
 
 module.exports = router

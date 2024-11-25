@@ -17,11 +17,11 @@ const userControllers = {
     register: (req, res) => {
         res.render('register');
     },
-    
+
     login: (req, res) => {
         res.render('login');
     },
-    
+
     // formLogin: function(req, res) {
     //     // Esta ruta no renderiza, redirecciona al usuario a home
     //     return
@@ -31,51 +31,63 @@ const userControllers = {
     //     return
     // },
 
-    loginUser: (req, res)=>{
+    loginUser: (req, res) => {
         let form = req.body;
 
         let filtro = {
-            where:{
+            where: {
                 email: form.email
             }
-        }
-        db.User.findOne(filtro)
-        .then((result)=>{
-            if (result != undefined) {
-                return res.send(result)
-            } else {
-                return res.send("No se encontro un usuarios")
-            }
+        };
 
-        }).catch((err)=>{
-            return console.log(err)
-        });
+        db.User.findOne(filtro)
+            .then((result) => {
+                if (result != undefined) {
+                    // let validarClave = bcryptjs.compareSync( form.contrasenia, result.contrasenia);
+                    
+                    // if (validarClave) {
+                    //     return res.redirect("/")
+                    // } else {
+                    //     return res.send("Clave incorrecta");
+                    // }
+                    let claves = {
+                         claveFormulario: form.contrasenia,
+                         claveBaseDatos: result.contrasenia
+                     };
+                         return res.send(claves);
+                } else {
+                    return res.send("No se encontro un usuario")
+                }
+
+            }).catch((err) => {
+                return console.log(err)
+            });
 
         return res.send(form)
     },
 
-    results: (req, res)=>{
+    results: (req, res) => {
         // let qs = req.query;
 
         let form = req.body;
         let pass = bcryptjs.hashSync(form.contrasenia, 10);
-        
+
         form.contrasenia = pass;
 
-           db.User.create(form)
-           .then((result)=>{
-            return res.redirect("/users/login")
+        db.User.create(form)
+            .then((result) => {
+                return res.redirect("/users/login")
 
-           }).catch((err)=>{
-            return console.log(err)
+            }).catch((err) => {
+                return console.log(err)
 
 
-           });
+            });
 
     }
 }
-    
-    //conectar todo con las vistas tambien, 
+
+//conectar todo con las vistas tambien, 
 
 
 

@@ -1,25 +1,17 @@
-// para dsp fijarse q funcione
-// const db = require('../database/models');
-// const Product = db.Product;
+const db = require('../database/models');
+const Product = db.Product;
 
 const indexController = {
     index: function(req, res) {
-        /*let arrayProductos = [];
-
         Product.findAll({
-
-        })
-            .then(function(res) {
-                if (res) {
-                    arrayProductos = res;
-                }
+            include: [{association: "usuario_producto"}]
+          })
+            .then(prod => {
+              res.render('index', {productos: prod});
             })
-            .catch(function(err) {
-                console.log(err)
-            })
-
-        res.render('index', { productos: arrayProductos });*/
-        res.render('index');
+            .catch(error => {
+              console.log(error);
+            });
     },
     add: function(req, res) {
         // si el user esta logueado se renderiza la vista, sino lo mando a login
@@ -53,6 +45,17 @@ const indexController = {
                     return res.render('product-add', {error: "Hubo error"})
                 })
         }
+    },
+    detalle: function (req, res) {
+        let idProducto = req.params.idProducto
+        db.Product.findByPk(idProducto)
+        .then(function(res) {
+            return res.render("product",{producto: res});
+        })
+        .catch(function(err) {
+            console.log(err)
+        })
+        res.render('product')
     }
     // todo el codigo de productos aca, findOne(), findByPk()...
 
