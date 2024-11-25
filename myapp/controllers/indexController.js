@@ -57,7 +57,7 @@ const indexController = {
         
         db.Product.findByPk(idProducto)
             .then(function(response) {
-                console.log(response)
+                
                 return res.render("product",{ producto: response });
             })
             .catch(function(err) {
