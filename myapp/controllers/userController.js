@@ -15,21 +15,20 @@ const User = db.User;
 
 const userControllers = {
     register: (req, res) => {
-        res.render('register');
+        if (!req.session.usuario) {
+            return res.render('register');
+        } else {
+            return res.redirect('/');
+        }
     },
 
     login: (req, res) => {
-        res.render('login');
+        if (!req.session.usuario) {
+            return res.render('login');
+        } else {
+            return res.redirect('/');
+        }
     },
-
-    // formLogin: function(req, res) {
-    //     // Esta ruta no renderiza, redirecciona al usuario a home
-    //     return
-    // },
-    // formRegister: function(req, res) {
-    //     // Esto no renderiza, que redirecciona al usuario a login
-    //     return
-    // },
 
     loginUser: (req, res) => {
         let form = req.body;
@@ -43,18 +42,15 @@ const userControllers = {
         db.User.findOne(filtro)
             .then((result) => {
                 if (result != undefined) {
-                    // let validarClave = bcryptjs.compareSync( form.contrasenia, result.contrasenia);
-                    
-                    // if (validarClave) {
-                    //     return res.redirect("/")
-                    // } else {
-                    //     return res.send("Clave incorrecta");
-                    // }
-                    let claves = {
-                         claveFormulario: form.contrasenia,
-                         claveBaseDatos: result.contrasenia
-                     };
-                         return res.send(claves);
+                    if (bcryptjs.compareSync(form.contrasenia, result.contrasenia)) {
+                        // Crear cookie (recordarme)
+                        
+                        // Crear session
+                        req.session.usuario = result;
+                        return res.redirect("/")
+                    } else {
+                        return res.send("Contraseña incorrecta")
+                    }
                 } else {
                     return res.send("No se encontro un usuario")
                 }
@@ -62,8 +58,6 @@ const userControllers = {
             }).catch((err) => {
                 return console.log(err)
             });
-
-        return res.send(form)
     },
 
     results: (req, res) => {
@@ -73,6 +67,9 @@ const userControllers = {
         let pass = bcryptjs.hashSync(form.contrasenia, 10);
 
         form.contrasenia = pass;
+
+        console.log(form);
+        
 
         db.User.create(form)
             .then((result) => {
@@ -93,7 +90,5 @@ const userControllers = {
 }
 
 //conectar todo con las vistas tambien, 
-
-
 
 module.exports = userControllers;

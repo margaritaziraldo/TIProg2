@@ -5,8 +5,11 @@
 
 <body>
 	<!-- Header -->
-	<%-  include('./partials/header')%>
-	<!-- /Header -->
+	<% if (locals.usuario) { %>
+		<%-  include('./partials/headerLogueado')%>
+	<% } else { %>
+		<%-  include('./partials/header')%>
+	<% } %>	<!-- /Header -->
 	
 	<!-- Banner -->
 	<div class="banner">
