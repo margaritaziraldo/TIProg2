@@ -9,7 +9,7 @@
 		<%-  include('./partials/headerLogueado')%>
 	<% } else { %>
 		<%-  include('./partials/header')%>
-	<% } %>	
+	<% } %>
 	<!-- /Header -->
 
 	<!-- Novedades -->
@@ -17,12 +17,29 @@
 		<div class="row">
 			<div class="col-12">
 				<h2 class="products-title">Resultados de búsqueda</h2>
-			</div>
 			
-			<h2 class="col-12"> <i>///////////////////////////////////////// <br> Acá van los resultados de búsqueda. <br>
-			Eliminá esta etiqueta h2 y construí la sección con los resultados de búsqueda. <br>
-			////////////////
-			</h2>
+				<% if (productos.length > 0) { %>
+					<% for (let i = 0; i < productos.length; i++) { %>
+						<div class="col-12 col-sm-6 col-lg-3">
+							<section class="product-box">
+								<a href="/products/id/<%= productos[i].id %>">
+									<figure class="product-box_image">
+										<img src="images/products/<%= productos[i].imagen %>" alt="<%= productos[i].nombre %>">
+									</figure>
+									<article class="product-box_data">
+										<h2><%= productos[i].nombre %></h2>
+										<p><%= productos[i].descripción %></p>
+									</article>
+								</a>
+							</section>
+						</div>
+					<% } %>
+				<% } else { %>
+					<p>No hay resultados para tu búsqueda</p>
+				<% } %>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- footer -->
