@@ -62,8 +62,29 @@ const indexController = {
             .catch(function(err) {
                 console.log(err)
             })
-        },
-// codigo de buscador
+    },
+    // codigo de buscador
+    buscar: function(req, res) {
+        let nombreProducto = req.query.search;
+
+        db.Product.findAll({
+            where: {
+                nombre: {
+                    [Op.like] : `%${nombreProducto}%`
+                }
+            }
+        })
+            .then(function(response) {
+                res.render('search-results', {productos: response});
+            })
+            .catch(function(err) {
+                console.log(err);
+                
+            })
+    }
+    
+
+    
 
 }
 
