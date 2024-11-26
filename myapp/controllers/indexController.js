@@ -44,34 +44,6 @@ const indexController = {
 
     },
 
-    // formAdd: function(req, res) {
-    //     let body = req.body;
-
-    //     let titulo = body.titulo;
-    //     let descripcion = body.descripcion;
-
-    //     // validamos q los campos no estén vacíos
-    //     if (!titulo || !descripcion) {
-    //         // para probar
-    //         console.log("No puede dejar vacíos los campos")
-
-    //         return res.render('product-add', {error: "No puede dejar vacíos los campos"})
-    //     } else {
-    //         // mandar a la base de datos la información del producto
-    //         Product.create({
-    //             titulo: titulo,
-    //             descripcion: descripcion,
-    //         })
-    //             .then(function(res) {
-    //                 return res.redirect("/");
-    //             })
-    //             .catch(function(err) {
-    //                 // para probar de nuevo
-    //                 console.log(err)
-    //                 return res.render('product-add', {error: "Hubo error"})
-    //             })
-    //     }
-    // },
     detalle: function (req, res) {
         let idProducto = req.params.id;
 

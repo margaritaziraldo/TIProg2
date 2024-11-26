@@ -1,17 +1,8 @@
+const { Association } = require('sequelize');
 const db = require('../database/models');
 const bcrypt = require("bcryptjs");
 const User = db.User;
 
-
-// User.findAll({
-//   include: [{association: "productos_usuario"}]
-// })
-//   .then(users => {
-//     res.send(users);
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
 
 const userControllers = {
     register: (req, res) => {
@@ -89,19 +80,24 @@ const userControllers = {
             })
           }
 
+    },
 
-        // let pass = bcrypt.hashSync(form.contrasenia, 10);
-        // form.contrasenia = pass;
-
-        // console.log(form);
-        
-
-        // db.User.create(form)
-        //     .then((result) => {
-        //         return res.redirect("/users/login")
-
-        //     }).catch((err) => {
-
+    detalle: (req, res) =>{
+        if(req.session.user == undefined){
+            return res.redirect("/")
+        } else {
+            let id = req.params.id
+            let filtro = {
+                include:[{association : "products"}]
+            }
+            db.User.findByPk(id, filtro)
+            .then(function(results){
+              return res.render('usuario', {username: results})
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+          }
     },
 
     logout: (req, res)=>{
@@ -110,6 +106,6 @@ const userControllers = {
     }
 }
 
-//conectar todo con las vistas tambien, 
+
 
 module.exports = userControllers;
