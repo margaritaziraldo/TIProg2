@@ -1,5 +1,5 @@
 const db = require('../database/models');
-const bcryptjs = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const User = db.User;
 
 
@@ -38,48 +38,69 @@ const userControllers = {
                 email: form.email
             }
         };
-
-        db.User.findOne(filtro)
-            .then((result) => {
-                if (result != undefined) {
-                    if (bcryptjs.compareSync(form.contrasenia, result.contrasenia)) {
-                        // Crear cookie (recordarme)
-                        
-                        // Crear session
+        if (form.email == ""){
+            return res.send("Porfavor ingresar email")
+        } else if (form.contrasenia == "") {
+            return res.send("Porfavor ingrese una contraseña")
+        } else { db.User.findOne(filtro)
+            .then(function(result){
+                if (result != undefined){
+                    let validClave = bcrypt.compareSync( form.contrasenia , result.contrasenia);
+                    
+                    if(validClave){
                         req.session.usuario = result;
-                        return res.redirect("/")
+                        return res.redirect("/");
                     } else {
-                        return res.send("Contraseña incorrecta")
+                        return res.send("Clave incorrecta");
                     }
                 } else {
-                    return res.send("No se encontro un usuario")
+                    return res.send("No se encontro un usuario");
                 }
+            })
+            .catch(function(error){
+                return console.log(error);
+            })
 
-            }).catch((err) => {
-                return console.log(err)
-            });
+        }
     },
 
     results: (req, res) => {
-        // let qs = req.query;
-
         let form = req.body;
-        let pass = bcryptjs.hashSync(form.contrasenia, 10);
 
-        form.contrasenia = pass;
+        if(form.email == ""){
+            return res.send("Porfavor ingresar email")
+          }
+          else if (form.name == "") {
+            return res.send("Porfavor ingrse un nombre de usuario")
+          }
+          else if (form.contrasenia == "") {
+            return res.send("Porfavor ingrese una contraseña")
+          }
+          else{
+            let pass = bcrypt.hashSync(form.contrasenia, 10)
+            form.password = pass;
+            
+            db.User.create(form)
+            .then(function(results) {
+                return res.redirect('/users/login')
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+          }
 
-        console.log(form);
+
+        // let pass = bcrypt.hashSync(form.contrasenia, 10);
+        // form.contrasenia = pass;
+
+        // console.log(form);
         
 
-        db.User.create(form)
-            .then((result) => {
-                return res.redirect("/users/login")
+        // db.User.create(form)
+        //     .then((result) => {
+        //         return res.redirect("/users/login")
 
-            }).catch((err) => {
-                return console.log(err)
-
-
-            });
+        //     }).catch((err) => {
 
     },
 
