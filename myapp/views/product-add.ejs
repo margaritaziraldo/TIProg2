@@ -14,13 +14,32 @@
 			<div class="col-12">
 				<h2 class="products-title">Agregar producto</h2>
 			</div>
-			<form action="/products/add" method="post">
+			<form class="form" action="/products/add" method="post">
+				
+				<div class="input-container ic1">
+				  <input id="name" class="input" type="text" placeholder="Título del producto" name="Titulo"/>
+				</div>
+
+				<div class="input-container ic1">
+				  <input id="descripcion" class="input" type="descripcion" placeholder="Descripción" name="contrasenia"/>
+				</div>
+
+				<div class="input-container ic">
+					<input type="hidden" name="idUsuario" value="<%= locals.usuario.id %>" 
+				</div>
+
+				<div class="input-container ic">
+					<input id="image" class="input" type="url" name="image" placeholder="Imagen" />
+				</div>
+
+				<button type="submit" class="submit">Crear</button>
+			<!-- <form action="/products/add" method="post">
 				<label for="titulo">Título</label>
 				<input type="text" name="titulo" placeholder="Ingrese el título del producto" required>
 				<label for="descripcion">Descripción</label>
 				<input type="text" name="descripcion" placeholder="Ingrese la descripción del producto" required>
 				<button type="submit">Cargar producto</button>
-			</form>
+			</form> -->
 			<% if (error) { %>
 				<p><%= error %></p>
 			<% } %>
